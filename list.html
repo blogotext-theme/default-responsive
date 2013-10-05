@@ -5,7 +5,7 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="fr"> <!--<![endif]-->
 <head>
 	<meta charset="UTF-8" />
-	<title>{blog_nom}</title>
+	<title>{article_titre_page}{blog_nom}</title>
 	<meta name="generator" content="BlogoText" />
 	<meta name="robots" content="all" />
 	<meta name="author" content="{blog_auteur}" />
@@ -13,7 +13,22 @@
 	<meta name="keywords" content="{keywords}" />
 	<meta name="description" content="{blog_description}" />
 	<link rel="icon" type="image/png" href="{style}/images/favicon.png" />
-	<link type="text/css" rel="stylesheet" href="{style}/css/onepcssgrid.css" />
+	<link rel="apple-touch-icon" href="{style}/images/apple-touch-icon.png">
+	<link rel="canonical" href="{racine_du_site}" />
+	<link rel="image_src" href="{style}/images/apple-touch-icon.png" />
+	<meta itemprop="name" content="{article_titre}" />
+	<meta itemprop="description" content="{article_chapo}" />
+	<meta itemprop="image" content="{style}/images/apple-touch-icon.png">
+	<meta property="og:title" content="{article_titre_page}{blog_nom}" />
+	<meta property="og:url" content="{racine_du_site}" />
+	<meta property="og:description" content="{blog_description}" />
+	<meta property="og:site_name" content="{blog_nom}" />
+	<meta property="og:locale" content="fr_FR" />
+	<meta property="og:image" content="{style}/images/apple-touch-icon.png" />
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="{style}/images/apple-touch-icon.png">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<link type="text/css" rel="stylesheet" href="{style}/style.css" />
 	<link type="application/rss+xml" rel="alternate" title="RSS 2.0 - Articles" href="{rss}" />
 	<!--[if lt IE 9]>
@@ -24,15 +39,15 @@
 	<!--[if lt IE 7]>
 		<p class="chromeframe">Votre navigateur internet n'est plus à jour. <a href="http://browsehappy.com/" title="Mettez à jour votre navigateur" rel="external">Mettez à jour votre navigateur aujourd'hui</a> ou <a href="http://www.google.com/chromeframe/?redirect=true" title="install Google Chrome Frame" rel="external">installez le plugin Google Chrome Frame</a> pour une meilleur navigation sur ce site.</p>
 	<![endif]-->
-	<div id="main" class="onepcssgrid-1000">
-		<header id="top" class="col12">
+	<div id="main">
+		<header id="top">
 			<div id="top_text">
 				<h1><a href="{racine_du_site}" title="{blog_nom}">{blog_nom}</a></h1>
 				<h2>{blog_description}</h2>
 			</div>
 		</header>
-		<div id="wrapper" class="onerow">
-			<section id="contenu" class="col8">
+		<div id="wrapper">
+			<section id="contenu">
 				{BOUCLE_posts}
 					// ici il s'affichera ce qu'on veut : un article, un commentaire, un lien sauvé…
 					// les thèmes pour ces choses sont dans le dossier "template"
@@ -40,7 +55,7 @@
 					// **** le texte que vous mettez ici (dans la "boucle") ne sera pas éxécuté ni affiché. ****
 				{/BOUCLE_posts}
 			</section>
-			<section id="sidebar" class="col4 last">
+			<aside id="sidebar">
 				<nav id="recherche">
 					<h3>Recherche</h3>
 					{recherche}
@@ -85,58 +100,13 @@
 					</ul>
 					<hr/>
 				</nav>
-			</section>
+			</aside>
 			<br style="clear:both;"/>
 			{pagination}
 		</div> <!-- einde #wrapper -->
-		<footer class="col12"><b>{blog_auteur}</b>, tout droits réservés – Propulsé avec <a href="http://lehollandaisvolant.net/blogotext/" title=" Site officiel de BlogoText">BlogoText</a> – Thème par <a href="http://lehollandaisvolant.net/" title="Blog de Timo van Neerden">Timo van Neerden</a></footer>
+		<footer><b>{blog_auteur}</b>, tout droits réservés – Propulsé avec <a href="http://lehollandaisvolant.net/blogotext/" title=" Site officiel de BlogoText">BlogoText</a> – Thème par <a href="http://lehollandaisvolant.net/" title="Blog de Timo van Neerden">Timo van Neerden</a></footer>
 	</div>
-
-	<script type="text/javascript">
-	/* Tag script found at : http://www.siteduzero.com/tutoriel-3-34703-insertion-de-balises-dans-une-zone-de-texte.html */
-	function insertTag(startTag, endTag, tag, tagType) {
-		var field = document.getElementById(tag);
-		var scroll = field.scrollTop;
-		field.focus();
-
-		if (window.ActiveXObject) { // C'est IE
-			var textRange = document.selection.createRange();            
-			var currentSelection = textRange.text;
-
-			textRange.text = startTag + currentSelection + endTag;
-			textRange.moveStart("character", -endTag.length - currentSelection.length);
-			textRange.moveEnd("character", -endTag.length);
-			textRange.select();     
-		} else { // c'est pas IE.
-			var startSelection   = field.value.substring(0, field.selectionStart);
-			var currentSelection = field.value.substring(field.selectionStart, field.selectionEnd);
-			var endSelection     = field.value.substring(field.selectionEnd);
-			if (currentSelection == "") { currentSelection = "TEXTE"; }
-			field.value = startSelection + startTag + currentSelection + endTag + endSelection;
-			field.focus();
-			field.setSelectionRange(startSelection.length + startTag.length, startSelection.length + startTag.length + currentSelection.length);
-		}
-		field.scrollTop = scroll;
-	}
-
-	function reply(code) {
-		var field = document.getElementById('form-commentaire').getElementsByTagName('textarea')[0];
-		field.focus();
-		if (field.value !== '') {
-			field.value += '\n\n';
-		}
-		field.value += code;
-		field.scrollTop = 10000;
-		field.focus();
-	}
-
-	function resize(id, dht) {
-		var elem = document.getElementById(id);
-		var ht = elem.offsetHeight;
-		size = Number(ht)+Number(dht);
-		elem.style.height = size+"px";
-		return false;
-	}
-	</script>
+  <!-- javascript at the bottom for fast page loading -->
+<script type="text/javascript" src="{style}/js/editor.js"></script>
 </body>
 </html>
