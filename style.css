@@ -1,5 +1,6 @@
 @import url(css/editor.css); 	/* feuille de style pour l'éditeur */
-
+/* old browser compatibility */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block; }
 /* GENERAL
 -------------------------------------------------------- */
 html, body, p, div, table, tr, td {margin: 0;padding: 0;}
